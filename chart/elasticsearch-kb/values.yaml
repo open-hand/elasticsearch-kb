@@ -11,7 +11,8 @@ service:
 env:
   open:
     discovery.type: single-node
-    ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+    bootstrap.memory_lock: true
 
 logs:
   parser: docker
