@@ -1,4 +1,4 @@
-{{- if .Values.rbac.enabled }}
+{{- if .Values.service.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,7 +7,7 @@ metadata:
     service: elasticsearch-kb
 spec:
   ports:
-  - port: 80
+  - port: 9200
     name: http
   selector:
     app: elasticsearch-kb
