@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: elasticsearch-kb
+{{ include "service.labels.standard" . | indent 4 }}
+{{ include "service.logging.deployment.label" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch-kb
+  template:
+    metadata:
+      annotations:
+{{ include "service.monitoring.pod.annotations" . | indent 8 }}
+      labels:
+        app: elasticsearch-kb
+{{ include "service.labels.standard" . | indent 8 }}
+    spec:
+{{- if .Values.rbac.enabled }}
+      serviceAccountName: elasticsearch-kb
+{{- end }}
+      containers:
+      - name: elasticsearch-kb
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 80
+          name: http
+      {{- with .Values.resources }}
+        resources:
+{{ toYaml . | indent 10 }}
+      {{- end }}
+        env:
+{{- range $name, $value := .Values.env }}
+{{- if not (empty $value) }}
+        - name: {{ $name | quote }}
+          value: {{ $value | quote }}
+{{- end }}
+{{- end }}
+        volumeMounts:
+        - name: config
+          mountPath: /elasticsearch-kb/config
+      volumes:
+      - name: config
+        configMap:
+          name: elasticsearch-kb-config
