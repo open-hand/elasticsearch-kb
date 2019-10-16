@@ -7,7 +7,7 @@ image:
 
 service:
   # 是否创建k8s service
-  enabled: false
+  enabled: true
   # service类型
   type: ClusterIP
   # service端口
