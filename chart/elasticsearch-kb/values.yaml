@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.saas.hand-china.com/hitoa/elasticsearch-kb
+  repository: registry.cn-shanghai.aliyuncs.com/choerodon/elasticsearch-kb
   tag: 7.2-elasticsearch-kb
   pullPolicy: IfNotPresent
 
