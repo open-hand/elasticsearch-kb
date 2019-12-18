@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.cn-shanghai.aliyuncs.com/choerodon/elasticsearch-kb
+  repository: registry.cn-shanghai.aliyuncs.com/c7n/elasticsearch-kb
   tag: 7.2-elasticsearch-kb
   pullPolicy: IfNotPresent
 
@@ -12,8 +12,17 @@ service:
   type: ClusterIP
   # service端口
   port: 9200
+  ## 若 type 为 NodePort，此为可选项
+  # nodePort: 30120
   # service名称
   name: elasticsearch-kb
+  ## externalIPs 设置
+  # externalIPs:
+  #   - externalIp1
+  annotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/actuator/prometheus'
+    # prometheus.io/port: '8061'
 
 env:
   open:
@@ -31,7 +40,7 @@ resources:
   # lines,adjust them as necessary,and remove the curly braces after 'resources:'.
   limits:
     # cpu: 100m
-    memory: 1.5Gi
+    memory: 2Gi
   requests:
     # cpu: 100m
-    memory: 1Gi
+    memory: 2Gi

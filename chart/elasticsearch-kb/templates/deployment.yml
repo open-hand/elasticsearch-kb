@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: {{ include "app.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
@@ -24,12 +24,12 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
           - name: http
-            containerPort: {{ .Values.service.port }}
+            containerPort: 9200
             protocol: TCP
         readinessProbe:
           httpGet:
             path: /
-            port: {{ .Values.service.port }}
+            port: 9200
             scheme: HTTP
           failureThreshold: 3
           initialDelaySeconds: 60
