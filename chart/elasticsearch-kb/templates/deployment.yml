@@ -51,3 +51,5 @@ spec:
           value: {{ $value | quote }}
 {{- end }}
 {{- end }}
+      securityContext:
+        runAsUser: 1000
