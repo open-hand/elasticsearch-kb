@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: registry.cn-shanghai.aliyuncs.com/c7n/elasticsearch-kb
-  tag: 7.2-elasticsearch-kb
+  tag: 7.9.2-elasticsearch-kb
   pullPolicy: IfNotPresent
 
 service:
